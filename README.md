@@ -6,6 +6,8 @@
 
 Este projeto implementa um sistema de gerenciamento de produtos utilizando Node.js, Express, MySQL e Redis. A solução foi projetada para garantir que os dados dos produtos sejam armazenados e recuperados de forma eficiente, utilizando o cache Redis para melhorar o desempenho das consultas.
 
+Video demonstrativo do projeto: https://www.youtube.com/watch?v=aFdUHESltZQ
+
 ### Funcionalidades
 
 1. **Adicionar Produto**: Um produto pode ser adicionado ao banco de dados e ao cache Redis.
