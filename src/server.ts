@@ -19,7 +19,7 @@ app.use(express.json());
 
 // rota principal
 routes.get("/", (req: Request, res: Response) => {
-  res.status(200).send("voce foi avisado");
+  res.status(200).send("Hello World!");
 });
 
 // rota para obter todos os produtos
