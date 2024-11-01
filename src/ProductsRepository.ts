@@ -3,13 +3,13 @@ import { conn, redis } from "./db";
 import { Product } from "./product";
 
 export class ProductsRepository {
-  // Ajuste o tipo de retorno para RowDataPacket
+  // retorna todos os produtos
   async getAll(): Promise<Product[]> {
     return new Promise((resolve, reject) => {
       conn.query<RowDataPacket[]>("SELECT * FROM PRODUCTS", (err, res) => {
         if (err) return reject(err);
 
-        // Mapeie os resultados para Product[]
+        // mapeia os resultados para um array de produtos
         const products: Product[] = res.map((row) => ({
           id: row.id,
           name: row.name,
@@ -21,6 +21,7 @@ export class ProductsRepository {
     });
   }
 
+  // retorna um produto pelo id
   async getById(product_id: number): Promise<Product | undefined> {
     return new Promise((resolve, reject) => {
       conn.query<RowDataPacket[]>(
@@ -29,7 +30,7 @@ export class ProductsRepository {
         (err, res) => {
           if (err) return reject(err);
 
-          // Converta a linha em Product
+          // converte a linha em um produto
           const product =
             res.length > 0
               ? {
@@ -45,6 +46,7 @@ export class ProductsRepository {
     });
   }
 
+  // cria um novo produto
   create(p: Product): Promise<Product> {
     return new Promise((resolve, reject) => {
       conn.query<ResultSetHeader>(
@@ -54,7 +56,7 @@ export class ProductsRepository {
           if (err) return reject(err);
           this.getById(res.insertId)
             .then((product) => {
-              // Adiciona o produto ao cache após a criação
+              // adiciona o produto ao cache após a criação
               redis.set(`product:${res.insertId}`, JSON.stringify(product));
               resolve(product!);
             })
@@ -64,6 +66,7 @@ export class ProductsRepository {
     });
   }
 
+  // atualiza um produto existente
   update(p: Product): Promise<Product | undefined> {
     return new Promise((resolve, reject) => {
       conn.query<ResultSetHeader>(
@@ -83,6 +86,7 @@ export class ProductsRepository {
     });
   }
 
+  // exclui um produto
   delete(product_id: number): Promise<number> {
     return new Promise((resolve, reject) => {
       conn.query<ResultSetHeader>(
@@ -98,6 +102,7 @@ export class ProductsRepository {
     });
   }
 
+  // inicializa o cache
   async initCache(): Promise<void> {
     const products = await this.getAll();
     await redis.set("products:all", JSON.stringify(products), "EX", 3600);
