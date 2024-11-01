@@ -1,0 +1,10 @@
+/*
+ * Licença de Uso Pessoal
+ * Autores: Arthur José Silva Maluf, João Victor Rokemback Tapparo, Matheus Zanon Caritá (líder do grupo)
+ *
+ * Este código é fornecido "como está", sem garantias de qualquer tipo, expressas ou implícitas, incluindo, mas não se limitando a, garantias de comerciabilidade ou adequação a um propósito específico.
+ * 
+ * É permitido o uso deste código para fins pessoais e não comerciais. Modificações e redistribuição são permitidas somente para uso próprio, desde que não haja nenhum objetivo de lucro.
+ * 
+ * Ao utilizar este código, você concorda em não redistribuir ou vender versões modificadas do código sem permissão expressa dos autores. Os autores não se responsabilizam por quaisquer danos ou prejuízos causados pelo uso deste código.
+ */

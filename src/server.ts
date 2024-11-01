@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response, Router } from "express";
 import { ProductsRepository } from "./ProductsRepository";
-import { Product } from "./product"; // Certifique-se de que o caminho esteja correto
+import { Product } from "./product"; // certifique-se de que o caminho esteja correto
 
 const app = express();
 const port = 3000;
@@ -9,25 +9,26 @@ const routes = Router();
 
 const productsRepo = new ProductsRepository();
 
-// Middleware para processar o JSON
+// middleware para processar o json
 app.use(express.json());
 
 (async () => {
-  // Inicializa o cache ao iniciar o servidor
+  // inicializa o cache ao iniciar o servidor
   await productsRepo.initCache();
 })();
 
+// rota principal
 routes.get("/", (req: Request, res: Response) => {
-  res.status(200).send("Voce foi avisado");
+  res.status(200).send("voce foi avisado");
 });
 
+// rota para obter todos os produtos
 routes.get("/getAllProducts", async (req: Request, res: Response) => {
-  // obter todos os produtos.
   const products = await productsRepo.getAll();
   res.status(200).type("application/json").send(products);
 });
 
-// Rota para adicionar um produto
+// rota para adicionar um produto
 routes.post("/addProduct", async (req: Request, res: Response) => {
   const newProduct: Product = {
     name: req.body.name as string,
@@ -43,9 +44,10 @@ routes.post("/addProduct", async (req: Request, res: Response) => {
   }
 });
 
-// aplicar as rotas na aplicação web backend.
+// aplica as rotas na aplicação web backend
 app.use(routes);
 
+// inicia o servidor
 app.listen(port, () => {
-  console.log(`Server is running on ${port}`);
+  console.log(`server is running on ${port}`);
 });
