@@ -85,6 +85,8 @@ export class ProductsRepository {
             .then((product) => {
               // adiciona o produto ao cache após a criação
               redis.set(`product:${res.insertId}`, JSON.stringify(product));
+              // invalida o cache de todos os produtos
+              redis.del("products:all");
               resolve(product!);
             })
             .catch(reject);
@@ -105,6 +107,8 @@ export class ProductsRepository {
             .then((product) => {
               // Atualiza o produto no cache após a atualização
               redis.set(`product:${p.id}`, JSON.stringify(product));
+              // invalida o cache de todos os produtos
+              redis.del("products:all");
               resolve(product);
             })
             .catch(reject);
@@ -123,6 +127,8 @@ export class ProductsRepository {
           if (err) return reject(err);
           // Remove o produto do cache após a exclusão
           redis.del(`product:${product_id}`);
+          // invalida o cache de todos os produtos
+          redis.del("products:all");
           resolve(res.affectedRows);
         }
       );
